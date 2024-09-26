@@ -1,0 +1,110 @@
+{
+  "serviceLines": [
+    {
+      "line": "Lakeshore West",
+      "stations": [
+        { "name": "Union Station", "code": "UN" },
+        { "name": "Exhibition", "code": "EX" },
+        { "name": "Mimico", "code": "MI" },
+        { "name": "Long Branch", "code": "LO" },
+        { "name": "Port Credit", "code": "PO" },
+        { "name": "Clarkson", "code": "CL" },
+        { "name": "Oakville", "code": "OA" },
+        { "name": "Bronte", "code": "BO" },
+        { "name": "Appleby", "code": "AP" },
+        { "name": "Burlington", "code": "BU" },
+        { "name": "Aldershot", "code": "AL" },
+        { "name": "Hamilton", "code": "HA" },
+        { "name": "West Harbour", "code": "WR" },
+        { "name": "St. Catharines", "code": "SCTH" },
+        { "name": "Niagara Falls", "code": "NI" }
+      ]
+    },
+    {
+      "line": "Lakeshore East",
+      "stations": [
+        { "name": "Union Station", "code": "UN" },
+        { "name": "Danforth", "code": "DA" },
+        { "name": "Scarborough", "code": "SC" },
+        { "name": "Eglinton", "code": "EG" },
+        { "name": "Guildwood", "code": "GU" },
+        { "name": "Rouge Hill", "code": "RO" },
+        { "name": "Pickering", "code": "PIN" },
+        { "name": "Ajax", "code": "AJ" },
+        { "name": "Whitby", "code": "WH" },
+        { "name": "Oshawa", "code": "OS" }
+      ]
+    },
+    {
+      "line": "Milton",
+      "stations": [
+        { "name": "Union Station", "code": "UN" },
+        { "name": "Kipling", "code": "KP" },
+        { "name": "Dixie", "code": "DI" },
+        { "name": "Cooksville", "code": "CO" },
+        { "name": "Erindale", "code": "ER" },
+        { "name": "Streetsville", "code": "SR" },
+        { "name": "Meadowvale", "code": "ME" },
+        { "name": "Lisgar", "code": "LS" },
+        { "name": "Milton", "code": "ML" }
+      ]
+    },
+    {
+      "line": "Kitchener",
+      "stations": [
+        { "name": "Union Station", "code": "UN" },
+        { "name": "Bloor", "code": "BL" },
+        { "name": "Weston", "code": "WE" },
+        { "name": "Etobicoke North", "code": "ET" },
+        { "name": "Malton", "code": "MA" },
+        { "name": "Bramalea", "code": "BE" },
+        { "name": "Brampton", "code": "BR" },
+        { "name": "Mount Pleasant", "code": "MO" },
+        { "name": "Georgetown", "code": "GE" }
+      ]
+    },
+    {
+      "line": "Barrie",
+      "stations": [
+        { "name": "Union Station", "code": "UN" },
+        { "name": "Downsview Park", "code": "DW" },
+        { "name": "Rutherford", "code": "RU" },
+        { "name": "Maple", "code": "MP" },
+        { "name": "King City", "code": "KC" },
+        { "name": "Aurora", "code": "AU" },
+        { "name": "Newmarket", "code": "NE" },
+        { "name": "East Gwillimbury", "code": "EA" },
+        { "name": "Bradford", "code": "BD" },
+        { "name": "Barrie South", "code": "BA" },
+        { "name": "Allandale Waterfront", "code": "AD" }
+      ]
+    },
+    {
+      "line": "Richmond Hill",
+      "stations": [
+        { "name": "Union Station", "code": "UN" },
+        { "name": "Oriole", "code": "OR" },
+        { "name": "Old Cummer", "code": "OL" },
+        { "name": "Langstaff", "code": "LA" },
+        { "name": "Richmond Hill", "code": "RI" },
+        { "name": "Gormley", "code": "GO" },
+        { "name": "Bloomington", "code": "BM" }
+      ]
+    },
+    {
+      "line": "Stouffville",
+      "stations": [
+        { "name": "Union Station", "code": "UN" },
+        { "name": "Kennedy", "code": "KE" },
+        { "name": "Agincourt", "code": "AG" },
+        { "name": "Milliken", "code": "MK" },
+        { "name": "Unionville", "code": "UI" },
+        { "name": "Centennial", "code": "CE" },
+        { "name": "Markham", "code": "MR" },
+        { "name": "Mount Joy", "code": "MJ" },
+        { "name": "Stouffville", "code": "ST" },
+        { "name": "Old Elm", "code": "LI" }
+      ]
+    }
+  ]
+}
