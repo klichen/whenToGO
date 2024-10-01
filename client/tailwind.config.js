@@ -10,12 +10,17 @@ export default {
       backgroundImage: {
         trains: "url('/src/assets/trains_background.png')",
       },
+      backgroundPosition: {
+        'left-middle': 'left top 2rem',
+      },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
-      colors: {},
+      colors: {
+        gogreen: '#42631c',
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],

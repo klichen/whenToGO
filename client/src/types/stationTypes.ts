@@ -67,3 +67,28 @@ export type StationCode =
   | 'MJ' // Mount Joy
   | 'ST' // Stouffville
   | 'LI'; // Old Elm
+
+interface Station {
+  name: string;
+  code: StationCode;
+}
+
+export interface ServiceLine {
+  line: string;
+  stations: Station[];
+}
+
+interface Trip {
+  departureTimeDisplay: string;
+  arrivalTimeDisplay: string;
+  durationMinutes: number;
+  transitType: number;
+}
+
+export interface Schedule {
+  serviceName: string;
+  date: string;
+  departureDisplay: string;
+  arrivalDisplay: string;
+  trips: Trip[];
+}

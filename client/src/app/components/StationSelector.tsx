@@ -18,38 +18,34 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/app/components/ui/popover';
-import { StationCode } from '@/types/stationTypes';
-import { FaXmark } from 'react-icons/fa6';
+import { ServiceLine, StationCode } from '@/types/stationTypes';
+import { filterStations } from '@/utils/helpers';
 
 interface StationSelectorProps {
   value: StationCode | '';
   setValue: React.Dispatch<React.SetStateAction<'' | StationCode>>;
   placeHolder: string;
+  departureStation?: StationCode | '';
+  isDestination: boolean;
 }
 
-interface Station {
-  name: string;
-  code: string;
-}
-
-interface ServiceLine {
-  line: string;
-  stations: Station[];
-}
-
-const serviceLines: ServiceLine[] = infoFile.serviceLines;
 // const stationCodes: StationCode = stationInfo;
 
 export function StationSelector({
   value,
   setValue,
   placeHolder,
+  departureStation,
+  isDestination,
 }: StationSelectorProps) {
   const [open, setOpen] = React.useState(false);
-  //   const [value, setValue] = React.useState('');
   const getStationNameByCode = (code: StationCode): string => {
     return stationInfo[code];
   };
+
+  const serviceLines: ServiceLine[] = departureStation
+    ? filterStations(infoFile.serviceLines as ServiceLine[], departureStation)
+    : (infoFile.serviceLines as ServiceLine[]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -58,13 +54,30 @@ export function StationSelector({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between border-black bg-gray-100"
+          disabled={isDestination && departureStation === ''}
+          className={cn(
+            'w-full justify-between border-black bg-gray-100',
+            !value && 'font-normal',
+          )}
         >
           {value ? getStationNameByCode(value) : placeHolder}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
-        <Command>
+      <PopoverContent className="min-w-full p-0 sm:w-[200px]">
+        <Command
+          filter={(value, search) => {
+            // console.log(value);
+            const stationName = getStationNameByCode(value as StationCode);
+            // console.log(stationName);
+            if (
+              search &&
+              stationName.toLowerCase().includes(search.toLowerCase())
+            ) {
+              return 1;
+            }
+            return 0;
+          }}
+        >
           <CommandInput placeholder="Search station..." className="h-9" />
           <CommandList>
             <CommandEmpty>Station not found</CommandEmpty>
@@ -72,6 +85,7 @@ export function StationSelector({
               <CommandGroup>
                 <CommandItem
                   onSelect={() => {
+                    setValue('');
                     setOpen(false);
                   }}
                 >
@@ -101,20 +115,6 @@ export function StationSelector({
                 ))}
               </CommandGroup>
             ))}
-            {/* <CommandGroup>
-              {frameworks.map((framework) => (
-                <CommandItem
-                  key={framework.value}
-                  value={framework.value}
-                  onSelect={(currentValue) => {
-                    setValue(currentValue === value ? '' : currentValue);
-                    setOpen(false);
-                  }}
-                >
-                  {framework.label}
-                </CommandItem>
-              ))}
-            </CommandGroup> */}
           </CommandList>
         </Command>
       </PopoverContent>
