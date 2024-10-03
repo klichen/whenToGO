@@ -21,3 +21,10 @@ export const filterStations = (
     return res;
   }, []);
 };
+
+export const convertTo12h = (timeString24h: string) => {
+  return new Date('1970-01-01T' + timeString24h + 'Z').toLocaleTimeString(
+    'en-US',
+    { timeZone: 'UTC', hour12: true, hour: 'numeric', minute: 'numeric' },
+  );
+};

@@ -5,11 +5,12 @@ import cors from "cors";
 dotenv.config();
 
 const app: Express = express();
-const port = process.env.PORT;
+// const port = process.env.PORT;
+const port = 8000;
 
 app.use(
   cors({
-    origin: "http://localhost:5173", // use your actual domain name (or localhost), using * is not recommended
+    origin: "http://192.168.0.29:5173", // use your actual domain name (or localhost), using * is not recommended
     methods: ["GET", "HEAD", "OPTIONS"],
     allowedHeaders: [
       "Content-Type",
@@ -50,6 +51,6 @@ app.get("/schedule", async (req: Request, res: Response) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`);
+app.listen(port, "192.168.0.29", () => {
+  console.log(`[server]: Server is running at http://192.168.0.29:${port}`);
 });

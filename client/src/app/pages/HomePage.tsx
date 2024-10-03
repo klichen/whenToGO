@@ -5,7 +5,7 @@ function HomePage() {
 
   return (
     <div className="bg-trains bg-left-middle h-screen overflow-hidden bg-cover">
-      <div className="flex h-5/6 flex-col bg-white sm:container sm:h-5/6 sm:rounded-b-lg xl:max-w-screen-lg">
+      <div className="flex h-full flex-col bg-transparent pb-2 sm:container sm:h-5/6 sm:rounded-b-lg xl:max-w-screen-lg">
         <div className="flex flex-row justify-between border-b-2 p-4">
           <Link
             to="/"

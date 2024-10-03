@@ -56,14 +56,14 @@ export function StationSelector({
           aria-expanded={open}
           disabled={isDestination && departureStation === ''}
           className={cn(
-            'w-full justify-between border-black bg-gray-100',
+            'max-w-full justify-between border-black bg-gray-100',
             !value && 'font-normal',
           )}
         >
           {value ? getStationNameByCode(value) : placeHolder}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="min-w-full p-0 sm:w-[200px]">
+      <PopoverContent className="h-[33vh] min-w-full p-0 sm:w-[200px]">
         <Command
           filter={(value, search) => {
             // console.log(value);

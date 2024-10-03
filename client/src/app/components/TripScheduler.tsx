@@ -16,7 +16,7 @@ const TripScheduler = () => {
     StationCode | ''
   >('');
   const [date, setDate] = useState<Date | undefined>(new Date());
-  const { schedule, fetchTripSchedule } = useGetTripSchedule();
+  const { schedule, fetchTripSchedule, fetchMockData } = useGetTripSchedule();
   const [viewOption, setViewOption] = useState<'full' | 'single' | null>(null);
 
   useEffect(() => {
@@ -26,13 +26,15 @@ const TripScheduler = () => {
         toStopCode: destinationStation,
         date: date,
       });
+      // fetchMockData();
+      console.log('mock');
     }
   }, [departureStation, destinationStation, date]);
 
   // console.log(schedule);
   return (
-    <ScrollArea className="overflow-hidden">
-      <div className="flex flex-col gap-4 px-8 pb-36 pt-4">
+    <ScrollArea className="flex h-[68vh] min-w-0 bg-white px-6">
+      <div className="flex flex-col gap-4 pb-5 pt-4">
         <h2 className="text-base font-bold text-black">
           Find Upcoming Trains and Buses
         </h2>
@@ -51,20 +53,26 @@ const TripScheduler = () => {
             isDestination={true}
           />
           <DatePicker date={date} setDate={setDate} />
-          <div className="flex flex-row gap-2">
+          <div className="inline-flex w-full flex-row gap-1">
             <Button
               variant="outline"
-              className={cn('bg-gogreen w-full justify-between text-white')}
+              className={cn(
+                'bg-gogreen w-full justify-between text-justify text-white active:scale-95',
+              )}
               onClick={() => setViewOption('full')}
+              disabled={!(departureStation && destinationStation)}
             >
-              See Full Schedule
+              Full Schedule
             </Button>
             <Button
               variant="outline"
-              className={cn('bg-gogreen w-full justify-between text-white')}
+              className={cn(
+                'bg-gogreen w-full justify-between text-justify text-white active:scale-95',
+              )}
               onClick={() => setViewOption('single')}
+              disabled={!(departureStation && destinationStation)}
             >
-              See Next Departure
+              Next Departure
             </Button>
           </div>
           <div className="pt-4">

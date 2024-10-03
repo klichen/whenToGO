@@ -7,6 +7,69 @@ interface FetchTripScheduleProps {
   date: Date;
 }
 
+const mockSchedule = {
+  serviceName: 'Stouffville',
+  date: '2024-10-02T00:00:00-04:00',
+  departureDisplay: 'Centennial GO',
+  arrivalDisplay: 'Union Station GO',
+  trips: [
+    {
+      departureTimeDisplay: '16:56',
+      arrivalTimeDisplay: '18:05',
+      durationMinutes: 69,
+      transitType: 0,
+    },
+    {
+      departureTimeDisplay: '17:31',
+      arrivalTimeDisplay: '18:35',
+      durationMinutes: 64,
+      transitType: 0,
+    },
+    {
+      departureTimeDisplay: '18:31',
+      arrivalTimeDisplay: '19:25',
+      durationMinutes: 54,
+      transitType: 0,
+    },
+    {
+      departureTimeDisplay: '19:43',
+      arrivalTimeDisplay: '20:29',
+      durationMinutes: 46,
+      transitType: 1,
+    },
+    {
+      departureTimeDisplay: '20:43',
+      arrivalTimeDisplay: '21:29',
+      durationMinutes: 46,
+      transitType: 1,
+    },
+    {
+      departureTimeDisplay: '21:43',
+      arrivalTimeDisplay: '22:29',
+      durationMinutes: 46,
+      transitType: 1,
+    },
+    {
+      departureTimeDisplay: '22:43',
+      arrivalTimeDisplay: '23:29',
+      durationMinutes: 46,
+      transitType: 1,
+    },
+    {
+      departureTimeDisplay: '23:33',
+      arrivalTimeDisplay: '00:10',
+      durationMinutes: 37,
+      transitType: 0,
+    },
+    {
+      departureTimeDisplay: '01:38',
+      arrivalTimeDisplay: '02:15',
+      durationMinutes: 37,
+      transitType: 0,
+    },
+  ],
+};
+
 const useGetTripSchedule = () => {
   const [schedule, setSchedule] = useState<Schedule | null>(null);
   const [loading, setLoading] = useState(false);
@@ -27,13 +90,13 @@ const useGetTripSchedule = () => {
     async ({ fromStopCode, toStopCode, date }: FetchTripScheduleProps) => {
       setLoading(true);
       try {
-        const baseUrl = 'http://localhost:8000/schedule';
+        const baseUrl = 'http://192.168.0.29:8000/schedule';
         const params = new URLSearchParams();
         params.append('fromStop', fromStopCode);
         params.append('toStop', toStopCode);
         params.append('date', formatDate(date)); // yyyy-mm-dd format
 
-        const url = new URL(`${baseUrl}?${params}`);
+        const url = new URL(`${baseUrl}?${params}/`);
         // console.log(url)
 
         const response = await fetch(url, {
@@ -56,7 +119,11 @@ const useGetTripSchedule = () => {
     [],
   );
 
-  return { loading, schedule, fetchTripSchedule };
+  const fetchMockData = useCallback(() => {
+    setSchedule(mockSchedule as Schedule);
+  }, []);
+
+  return { loading, schedule, fetchTripSchedule, fetchMockData };
 };
 
 export default useGetTripSchedule;
