@@ -7,6 +7,15 @@ export default {
       center: 'true',
     },
     extend: {
+      keyframes: {
+        spin: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(180deg)' },
+        },
+      },
+      animation: {
+        spin: 'spin 200ms forwards',
+      },
       backgroundImage: {
         trains: "url('/src/assets/trains_background.png')",
       },
