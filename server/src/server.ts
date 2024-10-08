@@ -10,7 +10,8 @@ const port = 3000;
 
 app.use(
   cors({
-    origin: "http://192.168.0.29:5173", // use your actual domain name (or localhost), using * is not recommended
+    // origin: "http://192.168.0.29:5173",
+    origin: "https://whentogo-pwvi.onrender.com",
     methods: ["GET", "HEAD", "OPTIONS"],
     allowedHeaders: [
       "Content-Type",
