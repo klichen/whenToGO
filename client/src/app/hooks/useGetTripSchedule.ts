@@ -87,7 +87,7 @@ const useGetTripSchedule = () => {
     async ({ fromStopCode, toStopCode, date }: FetchTripScheduleProps) => {
       setLoading(true);
       try {
-        const baseUrl = 'http://192.168.0.29:8000/schedule';
+        const baseUrl = 'https://whentogo-syi6.onrender.com/schedule';
         const params = new URLSearchParams();
         params.append('fromStop', fromStopCode);
         params.append('toStop', toStopCode);
