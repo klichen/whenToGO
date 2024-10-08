@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import * as infoFile from '@/utils/stationsInfo.json';
-import * as stationInfo from '@/utils/stationCodeLookup.json';
 import { cn } from '@/lib/utils';
 import { Button } from '@/app/components/ui/button';
 import {
@@ -19,7 +18,7 @@ import {
   PopoverTrigger,
 } from '@/app/components/ui/popover';
 import { ServiceLine, StationCode } from '@/types/stationTypes';
-import { filterStations } from '@/utils/helpers';
+import { filterStations, getStationNameByCode } from '@/utils/helpers';
 
 interface StationSelectorProps {
   value: StationCode | '';
@@ -29,8 +28,6 @@ interface StationSelectorProps {
   isDestination: boolean;
 }
 
-// const stationCodes: StationCode = stationInfo;
-
 export function StationSelector({
   value,
   setValue,
@@ -39,9 +36,6 @@ export function StationSelector({
   isDestination,
 }: StationSelectorProps) {
   const [open, setOpen] = React.useState(false);
-  const getStationNameByCode = (code: StationCode): string => {
-    return stationInfo[code];
-  };
 
   const serviceLines: ServiceLine[] = departureStation
     ? filterStations(infoFile.serviceLines as ServiceLine[], departureStation)
@@ -56,19 +50,17 @@ export function StationSelector({
           aria-expanded={open}
           disabled={isDestination && departureStation === ''}
           className={cn(
-            'max-w-full justify-between border-black bg-gray-100',
+            'max-w-full justify-between border-black bg-gray-100 sm:w-full',
             !value && 'font-normal',
           )}
         >
           {value ? getStationNameByCode(value) : placeHolder}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="h-[33vh] min-w-full p-0 sm:w-[200px]">
+      <PopoverContent className="h-[33vh] min-w-full p-0 sm:w-[20vw]">
         <Command
           filter={(value, search) => {
-            // console.log(value);
             const stationName = getStationNameByCode(value as StationCode);
-            // console.log(stationName);
             if (
               search &&
               stationName.toLowerCase().includes(search.toLowerCase())

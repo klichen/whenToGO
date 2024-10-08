@@ -1,4 +1,5 @@
 import { ServiceLine, StationCode } from '@/types/stationTypes';
+import * as stationInfo from '@/utils/stationCodeLookup.json';
 
 export const filterStations = (
   stationsInfo: ServiceLine[],
@@ -27,4 +28,8 @@ export const convertTo12h = (timeString24h: string) => {
     'en-US',
     { timeZone: 'UTC', hour12: true, hour: 'numeric', minute: 'numeric' },
   );
+};
+
+export const getStationNameByCode = (code: StationCode): string => {
+  return stationInfo[code];
 };

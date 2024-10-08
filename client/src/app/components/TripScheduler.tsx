@@ -17,7 +17,7 @@ const TripScheduler = () => {
     StationCode | ''
   >('');
   const [date, setDate] = useState<Date | undefined>(new Date());
-  const { schedule, fetchTripSchedule, fetchMockData } = useGetTripSchedule();
+  const { schedule, fetchTripSchedule } = useGetTripSchedule();
   const [viewOption, setViewOption] = useState<'full' | 'single' | null>(null);
   const [spin, setSpin] = useState(false);
   const [tripSaved, setTripSaved] = useState(false);
@@ -30,31 +30,67 @@ const TripScheduler = () => {
     setDestinationStation(departureTemp);
   };
 
+  const toggleSaveTrip = () => {
+    if (tripSaved) {
+      localStorage.removeItem(`${departureStation}-${destinationStation}`);
+      setTripSaved(false);
+    } else {
+      localStorage.setItem(`${departureStation}-${destinationStation}`, 's');
+      setTripSaved(true);
+    }
+  };
+
   const scrollToTrips = () =>
     tripsRef.current?.scrollIntoView({ behavior: 'smooth' });
 
+  const viewFullSchedule = () => {
+    setViewOption('full');
+    setTimeout(function () {
+      scrollToTrips();
+    }, 250);
+  };
+
+  const viewNextDeparture = () => {
+    setViewOption('single');
+    setTimeout(function () {
+      scrollToTrips();
+    }, 250);
+  };
+
   useEffect(() => {
     if (departureStation && destinationStation && date) {
-      // fetchTripSchedule({
-      //   fromStopCode: departureStation,
-      //   toStopCode: destinationStation,
-      //   date: date,
-      // });
-      fetchMockData();
+      fetchTripSchedule({
+        fromStopCode: departureStation,
+        toStopCode: destinationStation,
+        date: date,
+      });
       console.log('mock');
     }
   }, [departureStation, destinationStation, date]);
 
+  useEffect(() => {
+    if (departureStation && destinationStation) {
+      if (
+        localStorage.getItem(`${departureStation}-${destinationStation}`) !==
+        null
+      ) {
+        setTripSaved(true);
+      } else {
+        setTripSaved(false);
+      }
+    }
+  }, [departureStation, destinationStation]);
+
   // console.log(schedule);
   return (
-    <ScrollArea className="flex h-[68vh] min-w-0 bg-white px-6">
+    <ScrollArea className="flex h-[68vh] min-w-0 rounded-b-lg bg-white px-6">
       <div className="flex flex-col gap-4 pb-5 pt-4">
         <h2 className="text-base font-bold text-black">
           Find Upcoming Trains and Buses
         </h2>
-        <div className="flex flex-col gap-2 sm:flex-row sm:gap-3">
-          <div className="flex flex-row items-center gap-2">
-            <div className="flex flex-grow flex-col gap-2">
+        <div className="flex flex-col gap-2 sm:flex-row sm:gap-3 sm:border-b-2 sm:pb-2">
+          <div className="flex flex-row items-center gap-2 sm:flex-col sm:justify-between sm:gap-0">
+            <div className="sm: flex flex-grow flex-col gap-3 sm:w-[35vw] sm:flex-row lg:w-[45vw]">
               <StationSelector
                 value={departureStation}
                 setValue={setDepartureStation}
@@ -80,23 +116,23 @@ const TripScheduler = () => {
                 }}
                 onAnimationEnd={() => setSpin(false)}
               >
-                <MdSwapVerticalCircle size={42} style={{ color: '#42631c' }} />
+                <div className="sm: sm:rotate-90">
+                  <MdSwapVerticalCircle
+                    size={42}
+                    style={{ color: '#42631c' }}
+                  />
+                </div>
               </Button>
             ) : null}
           </div>
           <DatePicker date={date} setDate={setDate} />
-          <div className="inline-flex w-full flex-row gap-1 border-b-2 pb-2">
+          <div className="inline-flex w-full flex-row gap-1 border-b-2 pb-2 sm:w-full sm:flex-col sm:border-b-0 sm:pb-0">
             <Button
               variant="outline"
               className={cn(
                 'bg-gogreen w-full justify-between text-white active:scale-95',
               )}
-              onClick={() => {
-                setViewOption('full');
-                setTimeout(function () {
-                  scrollToTrips();
-                }, 250);
-              }}
+              onClick={viewFullSchedule}
               disabled={!(departureStation && destinationStation)}
             >
               Full Schedule
@@ -106,32 +142,29 @@ const TripScheduler = () => {
               className={cn(
                 'bg-gogreen w-full justify-between text-white active:scale-95',
               )}
-              onClick={() => setViewOption('single')}
+              onClick={viewNextDeparture}
               disabled={!(departureStation && destinationStation)}
             >
               Next Departure
             </Button>
           </div>
-          <div ref={tripsRef} className="flex flex-col gap-2 pt-4">
-            {viewOption !== null ? (
-              <Button
-                variant="outline"
-                className={cn(
-                  'bg-gogreen w-fit justify-between self-end border-gray-400 p-2 text-white active:scale-95',
-                  tripSaved && 'text-gogreen bg-white',
-                )}
-                // className={cn(
-                //   'text-gogreen w-fit justify-between self-end border-gray-400 bg-white active:scale-95',
-                // )}
-                onClick={() => setTripSaved(!tripSaved)}
-                disabled={!(departureStation && destinationStation)}
-              >
-                <MdBookmarkAdd size={24} style={{ paddingRight: '4px' }} />
-                Save this trip
-              </Button>
-            ) : null}
-            <ScheduleViewer viewOption={viewOption} schedule={schedule} />
-          </div>
+        </div>
+        <div ref={tripsRef} className="flex flex-col gap-2 pt-4">
+          {departureStation && destinationStation && viewOption !== null ? (
+            <Button
+              variant="outline"
+              className={cn(
+                'text-gogreen w-fit justify-between self-end border-gray-400 bg-white p-2 active:scale-95',
+                tripSaved && 'bg-gogreen text-white',
+              )}
+              onClick={toggleSaveTrip}
+              disabled={!(departureStation && destinationStation)}
+            >
+              <MdBookmarkAdd size={24} style={{ paddingRight: '4px' }} />
+              {tripSaved ? 'Saved' : 'Save this Trip'}
+            </Button>
+          ) : null}
+          <ScheduleViewer viewOption={viewOption} schedule={schedule} />
         </div>
       </div>
     </ScrollArea>

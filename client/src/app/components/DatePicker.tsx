@@ -25,11 +25,11 @@ const DatePicker = ({ date, setDate }: DatePickerProps) => {
         <Button
           variant={'outline'}
           className={cn(
-            'w-full justify-start border-black bg-gray-100 text-left',
+            'w-full justify-start border-black bg-gray-100 text-left sm:w-fit sm:whitespace-nowrap',
             !date && 'font-normal',
           )}
         >
-          <CalendarIcon className="mr-2 h-4 w-4" />
+          <CalendarIcon className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
           {date ? format(date, 'PPP') : <span>Pick a date</span>}
         </Button>
       </PopoverTrigger>

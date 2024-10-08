@@ -9,12 +9,34 @@ export default {
     extend: {
       keyframes: {
         spin: {
-          '0%': { transform: 'rotate(0deg)' },
-          '100%': { transform: 'rotate(180deg)' },
+          '0%': {
+            transform: 'rotate(0deg)',
+          },
+          '100%': {
+            transform: 'rotate(180deg)',
+          },
+        },
+        'accordion-down': {
+          from: {
+            height: '0',
+          },
+          to: {
+            height: 'var(--radix-accordion-content-height)',
+          },
+        },
+        'accordion-up': {
+          from: {
+            height: 'var(--radix-accordion-content-height)',
+          },
+          to: {
+            height: '0',
+          },
         },
       },
       animation: {
         spin: 'spin 200ms forwards',
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
       },
       backgroundImage: {
         trains: "url('/src/assets/trains_background.png')",

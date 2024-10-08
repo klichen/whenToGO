@@ -5,6 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/app/components/ui/card';
+import { cn } from '@/lib/utils';
 import { convertTo12h } from '@/utils/helpers';
 
 interface TripCardProps {
@@ -13,6 +14,7 @@ interface TripCardProps {
   departureTime: string;
   arrivalTime: string;
   tripDuration: number;
+  compact?: boolean;
 }
 
 import { FaTrainSubway, FaBusSimple } from 'react-icons/fa6';
@@ -22,12 +24,21 @@ const TripCard = ({
   departureTime,
   arrivalTime,
   tripDuration,
+  compact,
 }: TripCardProps) => {
   return (
-    <Card className="mb-3 border-gray-400 pl-3">
+    <Card className={cn('mb-3 border-gray-400 pl-3', compact && 'p-0')}>
       <CardHeader className="px-2 pb-0 pt-3">
-        <CardTitle className="text-xl underline">{serviceName} Line</CardTitle>
-        <CardDescription>{transitType === 1 ? 'Train' : 'Bus'}</CardDescription>
+        {compact ? null : (
+          <div>
+            <CardTitle className="text-xl underline">
+              {serviceName} Line
+            </CardTitle>
+            <CardDescription>
+              {transitType === 1 ? 'Train' : 'Bus'}
+            </CardDescription>
+          </div>
+        )}
       </CardHeader>
       <CardContent>
         <div className="flex flex-row items-start gap-3">
@@ -36,8 +47,6 @@ const TripCard = ({
           ) : (
             <FaBusSimple size={36} className="pt-2" />
           )}
-
-          {/*  */}
           <div className="flex flex-col">
             <p className="text-lg font-bold">
               {convertTo12h(departureTime)} - {convertTo12h(arrivalTime)}

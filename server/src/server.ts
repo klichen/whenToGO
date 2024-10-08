@@ -33,13 +33,12 @@ app.get("/", (req: Request, res: Response) => {
 app.get("/schedule", async (req: Request, res: Response) => {
   try {
     const { date, fromStop, toStop } = req.query;
-
     const url = new URL(
       "https://api.gotransit.com/v2/schedules/en/timetable/all"
     );
-    url.searchParams.append("date", date as string);
     url.searchParams.append("fromStop", fromStop as string);
     url.searchParams.append("toStop", toStop as string);
+    url.searchParams.append("date", date as string);
 
     const apiResponse = await fetch(url.toString());
     const apiResponseJson = await apiResponse.json();

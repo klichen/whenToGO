@@ -11,11 +11,21 @@ import {
 interface ScheduleViewerProps {
   viewOption: 'full' | 'single' | null;
   schedule: Schedule | null;
+  compact?: boolean;
+  loading?: boolean;
 }
 
-const ScheduleViewer = ({ viewOption, schedule }: ScheduleViewerProps) => {
+const ScheduleViewer = ({
+  viewOption,
+  schedule,
+  loading,
+  compact,
+}: ScheduleViewerProps) => {
   if (viewOption === null) {
     return null;
+  }
+  if (loading) {
+    return <div>Loading ...</div>;
   }
   if (schedule === null) {
     return <div>There are currently no scheduled trips D:</div>;
@@ -34,6 +44,7 @@ const ScheduleViewer = ({ viewOption, schedule }: ScheduleViewerProps) => {
             arrivalTime={trip.arrivalTimeDisplay}
             departureTime={trip.departureTimeDisplay}
             tripDuration={trip.durationMinutes}
+            compact={compact}
           />
         ))}
       </div>
@@ -41,7 +52,7 @@ const ScheduleViewer = ({ viewOption, schedule }: ScheduleViewerProps) => {
   }
   if (viewOption === 'single') {
     return (
-      <Carousel className="w-full max-w-md">
+      <Carousel className="w-full max-w-md sm:max-w-full">
         <CarouselContent>
           {trips.map((trip, index) => (
             <CarouselItem key={index}>
@@ -51,6 +62,7 @@ const ScheduleViewer = ({ viewOption, schedule }: ScheduleViewerProps) => {
                 arrivalTime={trip.arrivalTimeDisplay}
                 departureTime={trip.departureTimeDisplay}
                 tripDuration={trip.durationMinutes}
+                compact={compact}
               />
             </CarouselItem>
           ))}
