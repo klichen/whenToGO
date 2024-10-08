@@ -6,7 +6,7 @@ dotenv.config();
 
 const app: Express = express();
 // const port = process.env.PORT;
-const port = 8000;
+const port = 3000;
 
 app.use(
   cors({
@@ -50,6 +50,6 @@ app.get("/schedule", async (req: Request, res: Response) => {
   }
 });
 
-app.listen(port, "192.168.0.29", () => {
-  console.log(`[server]: Server is running at http://192.168.0.29:${port}`);
+app.listen(port, () => {
+  console.log(`[server]: Server is running on port ${port}`);
 });
