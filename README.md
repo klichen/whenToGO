@@ -49,8 +49,10 @@ This would also be a good opportunity to work with external APIs such as GO API 
 
 Below are screenshots of how a user can save a frequent trip and access it
 
-<img src="images/usage-1.PNG" alt="Product Screenshot" height="650" />
-<img src="images/usage-2.PNG" alt="Product Screenshot" height="650" />
+<p float="left" >
+  <img src="images/usage-1.PNG" alt="Product Screenshot" height="650" />
+  <img src="images/usage-2.PNG" alt="Product Screenshot" height="650" />
+</p>
 
 <!-- ROADMAP -->
 
